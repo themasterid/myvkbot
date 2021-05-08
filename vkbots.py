@@ -37,8 +37,7 @@ for event in longpoll.listen():
             request = event.text
             write_msg(event.user_id, 'Привет :)')
             if request in listkz:
-                otvet = 'Погода в городе - ' + request
-                otvet += '\n' + what_weather(request)
+                otvet = 'Погода в городе - ' + request + '\n' + what_weather(request)
             else:
                 otvet = 'Пожалуйста введите название крупного города в Казахстане, например, Алматы'
             write_msg(event.user_id, otvet)
