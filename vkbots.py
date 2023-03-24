@@ -32,14 +32,13 @@ def write_msg(user_id, message):
 vk = vk_api.VkApi(token=mytoken)
 longpoll = VkLongPoll(vk)
 for event in longpoll.listen():
-    if event.type == VkEventType.MESSAGE_NEW:
-        if event.to_me:
-            request = event.text
-            write_msg(event.user_id, 'Привет :)')
-            if request in listkz:
-                otvet = 'Погода в городе - ' + request + '\n' + what_weather(request)
-            else:
-                otvet = 'Пожалуйста введите название крупного города в Казахстане, например, Алматы'
-            write_msg(event.user_id, otvet)
+    if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+        request = event.text
+        write_msg(event.user_id, 'Привет :)')
+        if request in listkz:
+            otvet = f'Погода в городе - {request}' + '\n' + what_weather(request)
+        else:
+            otvet = 'Пожалуйста введите название крупного города в Казахстане, например, Алматы'
+        write_msg(event.user_id, otvet)
 
 bot.polling(none_stop=True)
